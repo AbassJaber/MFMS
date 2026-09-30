@@ -43,7 +43,35 @@ void addBudget() {
 
 }
 
+void displayBudgets() {
+    if (budgetCount == 0) {
+        printf("No budgets to display.\n");
+        return;
+    }
+    
+    printf("\n==== BUDGET REPORT ====\n");
+
+    for (int i = 0; i < budgetCount; i++) {
+        float remaining = budgets[i].allocated - budgets[i].expenditure;
+
+        printf("\nDepartment: %s\n", budgets[i].department);
+        printf("Allocated Budget: N$%.2f\n", budgets[i].allocated);
+        printf("Expenditure: N$%.2f\n", budgets[i].expenditure);
+        printf("Remaining Budget: N$%.2f\n", remaining);
+
+        if (budgets[i].expenditure > budgets[i].allocated) {
+            printf("Status: Over Budget\n");
+        } else {
+            printf("Status: Within Budget\n");
+        }
+
+    }
+    
+}
+
 int main() {
     addBudget();
+    addBudget();
+    displayBudgets();
     return 0;
 }

@@ -11,5 +11,6 @@ typedef struct {
 } Budget;
 
 void addBudget();
+void displayBudgets();
 
 #endif
