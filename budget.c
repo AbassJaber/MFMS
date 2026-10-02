@@ -5,42 +5,82 @@
 Budget budgets[MAX_BUDGET];
 int budgetCount = 0;
 
+static float readAmount(const char *prompt, const char *label) {
+    float value;
+    int ok, c;
+
+    while (1) {
+        printf("%s", prompt);
+        ok = scanf("%f", &value);
+        while ((c = getchar()) != '\n' && c != EOF); 
+
+        if (ok != 1) {
+            printf("Error: %s must be a number.\n", label);
+            continue;
+        }
+
+        if (value < 0) {
+            printf("Error: %s cannot be negative.\n", label);
+            continue;
+        }
+
+        return value;
+    }
+
+}
 
 void addBudget() {
     if (budgetCount >= MAX_BUDGET) {
         printf("Budget list is full. Cannot add more departments.\n");
         return;
-
     }
 
-    Budget newBudget;
+   Budget newBudget;
+    char name[50];
+    int c, i, duplicate;
 
-    printf("Enter department name: ");
-    scanf(" %[^\n]", newBudget.department);
+    while (1) {
+        printf("Enter department name: ");
+        if (fgets(name, sizeof(name), stdin) == NULL) {
+            return;
+        }
 
+        if (strchr(name, '\n') == NULL) {
+            while ((c = getchar()) != '\n' && c != EOF);
+            printf("Error: Department name is too long (maximum 48 characters).\n");
+            continue;
+        }
 
-    printf("Enter allocated budget: ");
-    scanf("%f", &newBudget.allocated);
+        name[strcspn(name, "\n")] = '\0';
 
-    if (newBudget.allocated < 0) {
-        printf("Error: Allocated budget cannot be negative.\n");
-        return;
+        if (strlen(name) == 0) {
+            printf("Error: Department name cannot be empty.\n");
+            continue;
+        }
+
+        duplicate = 0;
+        for (i = 0; i < budgetCount; i++) {
+            if (strcmp(budgets[i].department, name) == 0) {
+                duplicate = 1;
+            }
+        }
+        if (duplicate) {
+            printf("Error: That department already has a budget.\n");
+            continue;
+        }
+
+        break;
     }
 
-    printf("Enter expenditure: ");
-    scanf("%f", &newBudget.expenditure);
+    strcpy(newBudget.department, name);
 
-    if (newBudget.expenditure < 0) {
-        printf("Error: Expenditure cannot be negative.\n");
-        return;
-    
-    }
+    newBudget.allocated = readAmount("Enter allocated budget: ", "Allocated budget");
+    newBudget.expenditure = readAmount("Enter expenditure: ", "Expenditure");
 
     budgets[budgetCount] = newBudget;
     budgetCount++;
 
     printf("Budget added successfully for %s.\n", newBudget.department);
-
 }
 
 void displayBudgets() {
