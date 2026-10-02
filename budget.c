@@ -69,9 +69,30 @@ void displayBudgets() {
     
 }
 
+void showOverspentDepartments() {
+    int found = 0;
+    printf("\n==== DEPARTMENTS OVER BUDGET ====\n");
+
+    for (int i = 0; i < budgetCount; i++) {
+        if (budgets[i].expenditure > budgets[i].allocated) {
+            printf("\nDepartment: %s\n", budgets[i].department);
+            printf("Allocated Budget: N$%.2f\n", budgets[i].allocated);
+            printf("Expenditure: N$%.2f\n", budgets[i].expenditure);
+            printf("Overspent Amount: N$%.2f\n", budgets[i].expenditure - budgets[i].allocated);
+            found = 1;
+        }
+    }
+
+    if (found == 0) {
+        printf("No departments are currently over budget.\n");
+
+    }
+}
+
 int main() {
     addBudget();
     addBudget();
     displayBudgets();
+    showOverspentDepartments();
     return 0;
 }
