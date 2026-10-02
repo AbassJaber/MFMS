@@ -23,7 +23,7 @@ void addBudget() {
     scanf("%f", &newBudget.allocated);
 
     if (newBudget.allocated < 0) {
-        printf("Error: Allocated buget cannot be nagtive.\n");
+        printf("Error: Allocated budget cannot be negative.\n");
         return;
     }
 
@@ -31,7 +31,7 @@ void addBudget() {
     scanf("%f", &newBudget.expenditure);
 
     if (newBudget.expenditure < 0) {
-        printf("Error: Expenditure cannotbe negative.\n");
+        printf("Error: Expenditure cannot be negative.\n");
         return;
     
     }
