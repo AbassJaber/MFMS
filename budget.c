@@ -35,7 +35,7 @@ void addBudget() {
         return;
     }
 
-   Budget newBudget;
+    Budget newBudget;
     char name[50];
     int c, i, duplicate;
 
