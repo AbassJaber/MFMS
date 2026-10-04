@@ -52,7 +52,7 @@ Use of arrays, strings, functions, loops and decision-making
 
 Using GCC, compile the program with:
 
-gcc main.c employees.c budget.c supplier.c reports.c -o mfms
+gcc main.c employees.c budget.c supplier.c assets.c reports.c validation.c -o mfms
 
 ## How to Run: 
 
