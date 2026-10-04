@@ -2,6 +2,9 @@
 #include "reports.h"
 #include "employees.h"
 #include "budget.h"
+#include "supplier.h"
+#include "assets.h"
+#include "validation.h"
 
 extern Employee employees[MAX_EMPLOYEES];
 extern int employeeCount;
@@ -9,14 +12,12 @@ extern int employeeCount;
 extern Budget budgets[MAX_BUDGET];
 extern int budgetCount;
 
-/* Clears leftover characters after a failed scanf */
-static void clearInputBuffer(void)
-{
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF) {
-        /* discard */
-    }
-}
+extern Supplier suppliers[MAX_SUPPLIERS];
+extern int supplierCount;
+
+extern Asset assets[MAX_ASSETS];
+extern int assetCount;
+
 
 /* ---------------- EMPLOYEE REPORT ---------------- */
 void employeeReport(void)
@@ -99,23 +100,53 @@ void budgetReport(void)
 void supplierReport(void)
 {
     printf("\n========== SUPPLIER REPORT ==========\n");
-    /* TODO: replace once suppliers.h/.c are uploaded.
-       Expected pattern:
-         extern Supplier suppliers[...]; extern int supplierCount;
-         loop 0..supplierCount-1 and print ID, name, email, phone, town */
-    printf("Supplier module not connected yet.\n");
+    
+    if (supplierCount == 0) {
+        printf("No suppliers registered yet.\n");
+        return;
+    }
+
+    printf("Total Suppliers Registered: %d\n\n", supplierCount);
+    printf("%-8s %-20s %-25s %-15s %-15s\n", "ID", "Name", "Email", "Phone", "Location");
+    printf("-----------------------------------------------------------------------------------\n");
+
+    for (int i = 0; i < supplierCount; i++) {
+        printf("  - ID: %d, Name: %s, Email: %s, Phone: %s, Location: %s\n",
+               suppliers[i].supplierID, 
+               suppliers[i].name, 
+               suppliers[i].email,
+               suppliers[i].phone, 
+               suppliers[i].location);
+    }
 }
 
 /* ---------------- ASSET REPORT ---------------- */
 void assetReport(void)
 {
     printf("\n=========== ASSET REPORT ============\n");
-    /* TODO: replace once assets.h/.c are uploaded.
-       Expected pattern:
-         extern Asset assets[...]; extern int assetCount;
-         loop and print ID, name, type, value, department, condition;
-         optionally add a total asset value */
-    printf("Asset module not connected yet.\n");
+   
+    if (assetCount == 0) {
+        printf("No municipalassets registered yet.\n");
+        return;
+    }
+
+    float totalAssetValue = 0.0f;
+
+    printf("Total Assets Registered: %d\n\n", assetCount);
+    printf("%-8s %-20s %-25s %-15s %-15s\n", "ID", "Name", "Type", "Purchase Value", "Department", "Condition");
+    printf("-----------------------------------------------------------------------------------\n");
+
+    for (int i = 0; i < assetCount; i++) {
+        printf("  - ID: %d, Name: %s, Type: %s, Purchase Value: N$%.2f, Department: %s, Condition: %s\n",
+               assets[i].assetID, 
+               assets[i].name, assets[i].type, 
+               assets[i].purchaseValue,
+               assets[i].department, 
+               assets[i].condition);
+        totalAssetValue += assets[i].purchaseValue;
+    }
+
+    printf("\nTotal Accumulated Municipal Asset Value: N$%.2f\n", totalAssetValue);
 }
 
 /* ---------------- REPORTS SUB-MENU ---------------- */
