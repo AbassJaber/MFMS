@@ -129,10 +129,3 @@ void showOverspentDepartments() {
     }
 }
 
-int main() {
-    addBudget();
-    addBudget();
-    displayBudgets();
-    showOverspentDepartments();
-    return 0;
-}

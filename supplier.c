@@ -176,9 +176,3 @@ void supplierMenu()
         }
     } while (choice != 5);
 }
-
-int main()
-{
-    supplierMenu();
-    return 0;
-}

@@ -69,45 +69,41 @@ void addEmployee()
 
  
 void displayEmployees() {
-    if (employeeCount==0) {
+    if (employeeCount == 0) {
         printf("No employees to display.\n");
-    }else { 
-        printf("\n Employee List:\n");
-        for (int i =0; i<employeeCount;i++){
-            printf("ID: %d, Name: %s, Department: %s, Basic Salary: %.2f, Housing Allowance: %.2f, Transport Allowance: %.2f\n",
+    } else {
+        printf("\nEmployee List:\n");
+        for (int i = 0; i < employeeCount; i++) {
+            printf("ID: %d, Name: %s, Department: %s, Basic Salary: %.2f, Housing Allowance: %.2f, Transport Allowance: %.2f, Salary Calculated: %.2f\n",
                 employees[i].id,
                 employees[i].name,
                 employees[i].department,
                 employees[i].basicSalary,
                 employees[i].housingAllowance,
-                employees[i].transportAllowance);
+                employees[i].transportAllowance,
+                calculateSalary(employees[i]));
         }
     }
 }
 
-
-
-
-void searchEmployee(int id){
+void searchEmployee(int id) {
     int found = 0;
-    for(int i =0;i < employeeCount; i++){
-        if(employees[i].id == id){
-            printf("Employee Found: ID: %d, Name: %s, Department: %s, Basic Salary: %.2f\n",
-            employees[i].id,
-            employees[i].name,
-            employees[i].department,
-            employees[i].basicSalary,
-        calculateSalary(employees[i]));
-             found=1;
-             break;
-    
+    for (int i = 0; i < employeeCount; i++) {
+        if (employees[i].id == id) {
+            printf("Employee Found: ID: %d, Name: %s, Department: %s, Basic Salary: %.2f, Salary Calculated: %.2f\n",
+                employees[i].id,
+                employees[i].name,
+                employees[i].department,
+                employees[i].basicSalary,
+                calculateSalary(employees[i]));
+            found = 1;
+            break;
         }
     }
 
-
-if(!found) {
-    printf("Employee with ID %d not found.\n", id);
-}
+    if (!found) {
+        printf("Employee with ID %d not found.\n", id);
+    }
 }
 
 
