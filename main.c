@@ -6,6 +6,10 @@
 #include "reports.h"
 #include "validation.h"
 
+void clearInputBuffer(void) {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
 
 void displayMainMenu(void) {
     printf("================================\n ");
@@ -29,10 +33,13 @@ void displayEmployeeMenu() {
         printf("4. Back to main menu\n");
         printf("Enter your choice (1-4): ");
 
-        if (scanf("%d", &choice) != 1) {
-            printf("Invalid number. Please enter a number between 1 and 4.\n");
-            continue;
-        }
+       if (scanf("%d", &choice) != 1) {
+    printf("Invalid number. Please enter a number between 1 and 4.\n");
+    clearInputBuffer();
+    continue;
+}
+
+clearInputBuffer();
 
         switch (choice) {
             case 1:
